@@ -1,0 +1,100 @@
+Week 1: Setup + Authentication
+
+Goal: Get the project running and users able to log in.
+
+Tasks:
+
+Initialize React frontend + TailwindCSS.
+
+Initialize Node + Express backend.
+
+Connect to MongoDB Atlas.
+
+Implement JWT login/signup.
+
+Build frontend forms (login, signup).
+
+Use Context API for auth state.
+
+Deliverables:
+
+Users can create accounts, log in, and stay logged in.
+-----------------------------------------------------------------------------
+Week 2: Income & Expense Tracking
+
+Goal: Core financial tracking working.
+
+Tasks:
+
+Implement Income CRUD: add, view, delete.
+
+Implement Expense CRUD: add, view, delete.
+
+Dashboard summary cards: Total Balance, Income, Expenses.
+
+Recent transactions table.
+
+Simple category tagging.
+
+Deliverables:
+
+Dashboard shows accurate totals.
+
+Users can manage income & expenses manually.
+-----------------------------------------------------------------------------
+Week 3: CSV Upload + Basic Insights
+
+Goal: Automate transactions with statement upload.
+
+Tasks:
+
+Add CSV upload button in frontend.
+
+Use Multer + csv-parser in backend to parse files.
+
+Normalize CSV rows and insert into income/expense collections.
+
+Add simple categorization based on keywords.
+
+Update dashboard totals after CSV upload.
+
+Deliverables:
+
+Users can upload CSV statements.
+
+Transactions appear automatically in dashboard.
+-----------------------------------------------------------------------------
+Week 4: Charts + Export + Polishing
+
+Goal: Make it visual, exportable, and portfolio-ready.
+
+Tasks:
+
+Add Recharts charts:
+
+Pie chart → category breakdown
+
+Bar chart → monthly spending trends
+
+Add Excel/CSV export for income + expenses.
+
+Make dashboard mobile-responsive.
+
+Optional: small UI polish (colors, hover effects).
+
+Deploy frontend + backend + database.
+
+Deliverables:
+
+Users see visual insights.
+
+Data can be exported.
+
+Fully responsive and deployed app.
+
+🕐 Timeline Summary
+Week	Goal
+1	Setup + Auth
+2	Income/Expense CRUD + Dashboard
+3	CSV Upload + Basic Categorization
+4	Charts + Export + UI Polishing
