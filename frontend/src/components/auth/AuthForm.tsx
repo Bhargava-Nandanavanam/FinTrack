@@ -9,18 +9,24 @@ type Props = { type: "login" | "signup" };
 
 export default function AuthForm({ type }: Props) {
   const { login, signup } = useAuth();
-  const [email, setEmail] = useState(""); 
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    try { setLoading(true); setErr(null);
+    setErr(null);
+    setLoading(true);
+    try {
       if (type === "login") await login(email, password);
       else await signup(email, password);
-    } catch (e: any) { setErr(e?.message || "Something went wrong."); }
-    finally { setLoading(false); }
+      // optional: redirect here if you want -> router.push("/dashboard")
+    } catch (e: any) {
+      setErr(e?.message || "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -33,29 +39,59 @@ export default function AuthForm({ type }: Props) {
           {type === "login" ? "Log in to continue" : "It takes less than a minute"}
         </p>
 
+        {/* 🔊 Accessibility: screen-reader live region announces new errors */}
+        <div aria-live="polite" className="sr-only">
+          {err ? `Error: ${err}` : ""}
+        </div>
+
+        {/* ⚠️ Visible inline error message */}
         {err && (
-          <div className="mt-4 rounded-md border border-[--color-border] bg-[--color-primary-weak] px-3 py-2 text-sm">
+          <div
+            role="alert"
+            className="mt-4 rounded-md border border-[--color-border] bg-[--color-primary-weak] px-3 py-2 text-sm"
+          >
             {err}
           </div>
         )}
 
-        <form onSubmit={onSubmit} className="mt-6 space-y-3">
-          <Input type="email" placeholder="Email" autoComplete="email" value={email}
-                 onChange={(e) => setEmail(e.target.value)} />
-          <Input type="password" placeholder="Password"
-                 autoComplete={type === "login" ? "current-password" : "new-password"}
-                 value={password} onChange={(e) => setPassword(e.target.value)} />
+        <form onSubmit={onSubmit} className="mt-6 space-y-3" aria-busy={loading}>
+          <Input
+            type="email"
+            placeholder="Email"
+            autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            aria-invalid={!!err}
+          />
+          <Input
+            type="password"
+            placeholder="Password"
+            autoComplete={type === "login" ? "current-password" : "new-password"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            aria-invalid={!!err}
+          />
 
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Please wait…" : type === "login" ? "Login" : "Sign Up"}
+          <Button type="submit" className="w-full" isLoading={loading}>
+            {type === "login" ? "Login" : "Sign Up"}
           </Button>
         </form>
 
         <p className="mt-4 text-center text-sm text-[--color-muted]">
           {type === "login" ? (
-            <>No account? <Link href="/signup" className="underline text-[--color-primary]">Sign up</Link></>
+            <>
+              No account?{" "}
+              <Link href="/signup" className="underline text-[--color-primary]">
+                Sign up
+              </Link>
+            </>
           ) : (
-            <>Already have an account? <Link href="/login" className="underline text-[--color-primary]">Login</Link></>
+            <>
+              Already have an account?{" "}
+              <Link href="/login" className="underline text-[--color-primary]">
+                Login
+              </Link>
+            </>
           )}
         </p>
       </div>
