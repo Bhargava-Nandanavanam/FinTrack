@@ -1,31 +1,25 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Button from "@/components/ui/Button";
+import Logo from "./Logo";
 
 export default function Navbar() {
-  const pathname = usePathname();
-
-  // Hide navbar on auth pages
-  if (pathname.startsWith("/login") || pathname.startsWith("/signup")) return null;
+  const path = usePathname();
+  const hide =
+    path.startsWith("/login") ||
+    path.startsWith("/signup") ||
+    path.startsWith("/dashboard"); // hide on dashboard shell
+  if (hide) return null;
 
   return (
-    <nav className="flex items-center justify-between px-8 py-4 bg-white shadow-sm">
-      <Link href="/" className="text-xl font-bold text-blue-600">
-        FinTrack 💸
-      </Link>
-      <div className="flex gap-4">
-        <Link
-          href="/login"
-          className="px-4 py-2 rounded-md border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition"
-        >
-          Login
-        </Link>
-        <Link
-          href="/signup"
-          className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition"
-        >
-          Sign Up
-        </Link>
+    <nav className="sticky top-0 z-40 bg-background/80 backdrop-blur border-b border-[--color-border]">
+      <div className="mx-auto max-w-6xl px-6 h-14 flex items-center justify-between">
+        <Logo />
+        <div className="flex items-center gap-2">
+          <Button asChild href="/login" variant="ghost">Login</Button>
+          <Button asChild href="/signup" variant="secondary">Sign Up</Button>
+        </div>
       </div>
     </nav>
   );
