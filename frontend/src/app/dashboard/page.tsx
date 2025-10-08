@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import Skeleton from "@/components/ui/Skeleton";
 
@@ -14,9 +15,9 @@ function SummaryCard({ title, value }: { title: string; value: string }) {
 export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
 
-  // ⏳ Simulate data fetch delay
+  // ⏳ Simulate data fetch delay (set to 0 or remove for instant load)
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500);
+    const timer = setTimeout(() => setLoading(false), 1);
     return () => clearTimeout(timer);
   }, []);
 
